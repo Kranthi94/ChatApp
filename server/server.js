@@ -24,6 +24,12 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', function (message) {
     console.log(message);
+
+    io.emit('newMessage', {
+      from : message.from,
+      text : message.text,
+      createdAt : new Date().toString()
+    });
   });
 
   socket.emit('newMessage', {
