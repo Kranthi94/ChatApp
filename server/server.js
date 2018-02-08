@@ -22,6 +22,18 @@ io.on('connection', (socket) => {
 
   console.log('New user connected');
 
+  socket.emit('newMessage', {
+    from : 'Admin',
+    text : 'Welcome to Chat App',
+    createdAt : new Date().toString()
+  });
+
+  socket.broadcast.emit('newMessage', {
+    from : 'Admin',
+    text : 'New User Added',
+    createdAt : new Date().toString()
+  });
+
   socket.on('createMessage', function (message) {
     console.log(message);
 
@@ -30,12 +42,6 @@ io.on('connection', (socket) => {
       text : message.text,
       createdAt : new Date().toString()
     });
-  });
-
-  socket.emit('newMessage', {
-    text : 'Hey',
-    from : 'Kranthi',
-    createdAt : new Date().toString()
   });
 
   socket.on('disconnect', () => {
