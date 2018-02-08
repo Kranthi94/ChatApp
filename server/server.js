@@ -32,7 +32,14 @@ io.on('connection', (socket) => {
 
     console.log(message);
 
-    // io.emit('newMessage', generateMessage(message.from, message.text));
+    io.emit('newMessage', generateMessage(message.from, message.text));
+
+    callback('Successfully received at server');
+  });
+
+  socket.on('newMessage', function (message, callback) {
+
+    console.log(message);
 
     callback('Successfully received at server');
   });
