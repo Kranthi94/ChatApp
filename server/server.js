@@ -4,7 +4,7 @@ const http = require('http');
 
 const express = require('express');
 
-var {generateMessage} = require('./util/util.js');
+var {generateMessage} = require('./utils/utils.js');
 
 var socketIO = require('socket.io');
 
@@ -28,11 +28,13 @@ io.on('connection', (socket) => {
 
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Added'));
 
-  socket.on('createMessage', function (message) {
+  socket.on('createMessage', function (message, callback) {
 
     console.log(message);
 
-    io.emit('newMessage', generateMessage(message.from, message.text));
+    // io.emit('newMessage', generateMessage(message.from, message.text));
+
+    callback('Successfully received at server');
   });
 
   socket.on('disconnect', () => {
